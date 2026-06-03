@@ -1,5 +1,19 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
+use pqcrypto_kyber::kyber1024::*;
+use pqcrypto_traits::kem::{Ciphertext, PublicKey, SecretKey, SharedSecret};
+
+/// Simulates the generation of a post-quantum keypair for a satellite connection.
+pub fn generate_pqc_keypair() -> (PublicKey, SecretKey) {
+    keypair()
+}
+
+/// Simulates the encapsulation of a shared secret using a given public key.
+pub fn encapsulate_secret(pk: &PublicKey) -> (SharedSecret, Ciphertext) {
+    encapsulate(pk)
+}
+
+/// Simulates the decapsulation of a ciphertext to retrieve the shared secret.
+pub fn decapsulate_secret(ct: &Ciphertext, sk: &SecretKey) -> SharedSecret {
+    decapsulate(ct, sk)
 }
 
 #[cfg(test)]
@@ -7,8 +21,11 @@ mod tests {
     use super::*;
 
     #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
+    fn test_kyber_kem() {
+        let (pk, sk) = generate_pqc_keypair();
+        let (shared_secret_sender, ciphertext) = encapsulate_secret(&pk);
+        let shared_secret_receiver = decapsulate_secret(&ciphertext, &sk);
+
+        assert_eq!(shared_secret_sender.as_bytes(), shared_secret_receiver.as_bytes());
     }
 }
