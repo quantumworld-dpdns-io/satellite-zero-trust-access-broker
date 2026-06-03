@@ -23,3 +23,4 @@ vendor/
 .env.*
 !.env.example
 auto_commit.sh
+ignore.md
