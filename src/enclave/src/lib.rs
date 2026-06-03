@@ -1,20 +1,19 @@
-use pqcrypto_kyber::kyber1024::*;
-use pqcrypto_dilithium::dilithium5::*;
-use pqcrypto_traits::sign::{DetachedSignature as _, PublicKey as SignPublicKey, SecretKey as SignSecretKey};
+use pqcrypto_kyber::kyber1024;
+use pqcrypto_dilithium::dilithium5;
 
 /// Simulates the generation of a post-quantum keypair for a satellite connection.
-pub fn generate_pqc_keypair() -> (PublicKey, SecretKey) {
-    keypair()
+pub fn generate_pqc_keypair() -> (kyber1024::PublicKey, kyber1024::SecretKey) {
+    kyber1024::keypair()
 }
 
 /// Simulates the encapsulation of a shared secret using a given public key.
-pub fn encapsulate_secret(pk: &PublicKey) -> (SharedSecret, Ciphertext) {
-    encapsulate(pk)
+pub fn encapsulate_secret(pk: &kyber1024::PublicKey) -> (kyber1024::SharedSecret, kyber1024::Ciphertext) {
+    kyber1024::encapsulate(pk)
 }
 
 /// Simulates the decapsulation of a ciphertext to retrieve the shared secret.
-pub fn decapsulate_secret(ct: &Ciphertext, sk: &SecretKey) -> SharedSecret {
-    decapsulate(ct, sk)
+pub fn decapsulate_secret(ct: &kyber1024::Ciphertext, sk: &kyber1024::SecretKey) -> kyber1024::SharedSecret {
+    kyber1024::decapsulate(ct, sk)
 }
 
 /// Generates a Post-Quantum Signature keypair using Dilithium5.
