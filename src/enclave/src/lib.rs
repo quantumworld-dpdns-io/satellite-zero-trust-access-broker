@@ -1,5 +1,4 @@
 use pqcrypto_kyber::kyber1024::*;
-use pqcrypto_traits::kem::SharedSecret as _;
 
 /// Simulates the generation of a post-quantum keypair for a satellite connection.
 pub fn generate_pqc_keypair() -> (PublicKey, SecretKey) {
