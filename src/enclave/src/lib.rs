@@ -18,6 +18,7 @@ pub fn decapsulate_secret(ct: &Ciphertext, sk: &SecretKey) -> SharedSecret {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use pqcrypto_traits::kem::SharedSecret as _;
 
     #[test]
     fn test_kyber_kem() {
